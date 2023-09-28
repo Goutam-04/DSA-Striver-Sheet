@@ -10,7 +10,8 @@ a majority element, the stored element will be that one but if the question does
 element is the majority element or not. If not, then the array does not contain any majority element.
 
 
-Approach: 
+// ?optimal Approach: *******************************************************************************************************
+
 Initialize 2 variables:
 Count –  for tracking the count of element
 
@@ -89,8 +90,91 @@ int main()
 
 
 Time Complexity: O(N) + O(N), where N = size of the given array.
-Reason: The first O(N) is to calculate the count and find the expected majority element. The second one is to check if the expected element is the majority one or not.
+Reason: The first O(N) is to calculate the count and find the expected majority element. 
+The second one is to check if the expected element is the majority one or not.
 
-Note: If the question states that the array must contain a majority element, in that case, we do not need the second check. Then the time complexity will boil down to O(N).
+Note: If the question states that the array must contain a majority element, 
+in that case, we do not need the second check. Then the time complexity will boil down to O(N).
 
 Space Complexity: O(1) as we are not using any extra space.
+
+
+
+//? another appproaches*****************************************************************************************************
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int majorityElement(vector<int> v) {
+
+    //size of the given array:
+    int n = v.size();
+
+    //declaring a map:
+    map<int, int> mpp;
+
+    //storing the elements with its occurnce:
+    for (int i = 0; i < n; i++) {
+        mpp[v[i]]++;
+    }
+
+    //searching for the majority element:
+    for (auto it : mpp) {
+        if (it.second > (n / 2)) {
+            return it.first;
+        }
+    }
+
+    return -1;
+}
+
+int main()
+{
+    vector<int> arr = {2, 2, 1, 1, 1, 2, 2};
+    int ans = majorityElement(arr);
+    cout << "The majority element is: " << ans << endl;
+    return 0;
+}
+
+// ?brute force approach**************************************************************************************************************
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int majorityElement(vector<int> v) {
+
+    //size of the given array:
+    int n = v.size();
+
+    for (int i = 0; i < n; i++) {
+        //selected element is v[i]
+        int cnt = 0;
+        for (int j = 0; j < n; j++) {
+            // counting the frequency of v[i]
+            if (v[j] == v[i]) {
+                cnt++;
+            }
+        }
+
+        // check if frquency is greater than n/2:
+        if (cnt > (n / 2))
+            return v[i];
+    }
+
+    return -1;
+}
+
+int main()
+{
+    vector<int> arr = {2, 2, 1, 1, 1, 2, 2};
+    int ans = majorityElement(arr);
+    cout << "The majority element is: " << ans << endl;
+    return 0;
+}
+
